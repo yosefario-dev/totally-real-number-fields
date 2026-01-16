@@ -1,8 +1,6 @@
 from sage.all import *
 
-# Compute the invariants of the number field K.
 def compute_field(K):
-    # Basic data
     poly = K.defining_polynomial()
     dK = K.discriminant()
     C = K.class_group()
@@ -10,12 +8,10 @@ def compute_field(K):
     rK = K.regulator()                              
     mb = K.minkowski_bound()
 
-    # Unit group
     U = K.unit_group()
     fu = U.fundamental_units()
     tor = U.torsion_subgroup()
     
-    # Prime ramification
     primes = dK.prime_factors()
     prime_ram_data = {}
     for p in primes:
@@ -27,7 +23,6 @@ def compute_field(K):
 
     int_base = K.integral_basis()
 
-    # Automorphisms and Galois theory
     autos = K.automorphisms()
     galois_grp = K.galois_group()
     galois_clsr = K.galois_closure('v')
@@ -51,7 +46,7 @@ def compute_field(K):
 
     return field_data
 
-# Compute the field invariants of the first n real quadratic fields
+
 def compute_invariants(deg, d_bound):
     fields = enumerate_totallyreal_fields_prim(deg, d_bound)
     field_data = []

@@ -22,31 +22,24 @@ def serialize_field(field_data):
     out["dk"] = int(field_data["dk"])
     out["hk"] = int(field_data["hk"])
 
-    # rk and mb are often Sage real/rational types; store as strings to avoid precision loss
     out["rk"] = float(field_data["rk"])
     out["mb"] = float(field_data["mb"])
 
-    # class_group / unit_group are Sage objects; store descriptive string forms
     out["class_group"] = str(field_data["class_group"])
     out["unit_group"] = str(field_data["unit_group"])
 
-    # units and torsion subgroup
     out["fund_units"] = [str(u) for u in field_data["fund_units"]]
     out["unit_tor_sbgrp"] = str(field_data["unit_tor_sbgrp"])
 
-    # ramified primes: force JSON-safe keys and string-ify ideals/objects inside
     out["ramified_primes"] = {
         int(p): [[str(I), int(e)] for (I, e) in data]
         for p, data in field_data["ramified_primes"].items()
     }
 
-    # integral basis: list of elements
     out["int_basis"] = [str(b) for b in field_data["int_basis"]]
 
-    # automorphisms: store each as a string
     out["auto_group"] = [str(phi) for phi in field_data["auto_group"]]
 
-    # galois group / closure
     out["galois_group"] = str(field_data["galois_group"])
     out["galois_clsr"] = str(field_data["galois_clsr"])
 
@@ -57,10 +50,8 @@ def to_json(invariants, filename):
     print("Saving data to", filename)
     to_store = [serialize_field(field) for field in invariants]
 
-    # Save the structured data to a JSON file
     with open(filename, 'w') as json_file:
         json.dump(to_store, json_file, indent=2)
 
-#### MAIN FUNCTION CODE ####
 if __name__ == "__main__":
     main()
